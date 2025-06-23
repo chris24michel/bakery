@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chris' Vegam Bakery | Plant-Based Sourdough & Cookies</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/bakery-logo.png" alt="Golden Crust Bakery">
+                <span>Chris' Vegan Bakery</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#order">Order</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Plant-Based Sourdough & Cookies</h1>
+            <p>Made with love locally in Del Rey.</p>
+            <a href="#order" class="btn">Order Now</a>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="menu-categories">
+                <button class="active" data-category="all">All Items</button>
+                <button data-category="sourdough">Sourdough</button>
+                <button data-category="cookies">Cookies</button>
+            </div>
+            
+            <div class="menu-items">
+                <!-- Items will be loaded via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <h2>Our Story</h2>
+                <p>Chris' Vegan Bakery started as a passion project in our home kitchen. What began with a single sourdough starter has grown into a beloved local bakery specializing in naturally leavened breads and decadent cookies.</p>
+                <p>We use only the finest plant based ingredients and traditional baking methods to create products that are as wholesome as they are delicious.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="order-section" id="order">
+        <div class="container">
+            <h2>Place Your Order</h2>
+            <div class="order-container">
+                <div class="order-summary">
+                    <h3>Your Order</h3>
+                    <div class="order-items">
+                        <!-- Cart items will appear here -->
+                        <p class="empty-cart">Your cart is empty</p>
+                    </div>
+                    <div class="order-total">
+                        <span>Total:</span>
+                        <span class="total-amount">$0.00</span>
+                    </div>
+                    <button class="btn checkout-btn">Proceed to Checkout</button>
+                </div>
+                
+                <form class="order-form">
+                    <h3>Delivery Information</h3>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Delivery Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Delivery Address</label>
+                        <textarea id="address" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Special Instructions</label>
+                        <textarea id="notes" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn submit-order">Place Order</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Golden Crust Bakery</h3>
+                    <p>Artisan baked goods made with natural ingredients and traditional methods.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-phone"></i> (424) 241-8752</p>
+                    <p><i class="fas fa-envelope"></i> chris24michel@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Hours</h3>
+                    <p>Monday - Friday: 8am - 5pm</p>
+                    <p>Saturday: 9am - 3pm</p>
+                    <p>Sunday: Closed</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Chris' Vegan Bakery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Thank You for Your Order!</h2>
+            <p>Your order has been received and we'll contact you shortly to confirm the details.</p>
+            <button class="btn close-btn">Back to Menu</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
