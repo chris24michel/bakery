@@ -238,37 +238,99 @@ categoryButtons.forEach(button => {
     });
 });
 
-// Handle form submission
-orderForm.addEventListener('submit', (e) => {
+// In your script.js file
+const API_URL = 'https://fyptm02g0j.execute-api.us-east-1.amazonaws.com/prod/order';
+
+async function submitOrder(orderData) {
+    try {
+        // Validate required fields before sending
+        if (!orderData.name || !orderData.email || !orderData.items || orderData.items.length === 0) {
+            throw new Error('Please fill all required fields');
+        }
+
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            mode: 'cors', // Enable CORS
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: orderData.name,
+                email: orderData.email,
+                items: orderData.items.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity
+                })),
+                total: orderData.total,
+                phone: orderData.phone || '',
+                date: orderData.date || '',
+                address: orderData.address || '',
+                notes: orderData.notes || ''
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to submit order');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Order submission error:', error);
+        throw error; // Re-throw to handle in your UI
+    }
+}
+
+// Example usage when form is submitted
+document.querySelector('.order-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    if (cart.length === 0) {
-        alert('Your cart is empty. Please add items before placing an order.');
-        return;
+    try {
+        const orderData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            items: Array.from(document.querySelectorAll('.cart-item')).map(item => ({
+                id: item.dataset.id,
+                name: item.dataset.name,
+                price: parseFloat(item.dataset.price),
+                quantity: parseInt(item.querySelector('.quantity').textContent)
+            })),
+            total: parseFloat(document.querySelector('.order-total').textContent.replace('$', '')),
+            date: document.getElementById('date').value,
+            address: document.getElementById('address').value,
+            notes: document.getElementById('notes').value
+        };
+
+        const result = await submitOrder(orderData);
+        alert('Order submitted successfully! Order ID: ' + result.orderId);
+        // Reset form or redirect as needed
+    } catch (error) {
+        alert('Error: ' + error.message);
     }
-    
-    // In a real app, you would send this data to your backend
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        date: document.getElementById('date').value,
-        address: document.getElementById('address').value,
-        notes: document.getElementById('notes').value,
-        items: cart,
-        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    };
-    
-    console.log('Order submitted:', formData); // For demo purposes
-    
-    // Show success modal
-    modal.style.display = 'flex';
-    
-    // Reset form and cart
-    orderForm.reset();
-    cart = [];
-    updateCart();
 });
+
+
+// Add this to load menu items from backend
+async function loadMenuItems() {
+    try {
+        const response = await fetch(`${API_URL}/menu`);
+        const items = await response.json();
+        
+        // Replace your static menuItems array with the fetched data
+        menuItems = items;
+        displayMenuItems();
+    } catch (error) {
+        console.error('Failed to load menu:', error);
+        // Fall back to static menu items
+        displayMenuItems();
+    }
+}
+
+// Call this at initialization
+loadMenuItems();
 
 // Close modal
 closeModal.addEventListener('click', () => {

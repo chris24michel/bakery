@@ -1,0 +1,8 @@
+{
+    "Template": {
+      "TemplateName": "OrderConfirmation",
+      "SubjectPart": "Your Bakery Order Confirmation #{{orderId}}",
+      "HtmlPart": "<h1>Thank you for your order!</h1><p>We've received your order for {{items}} and will contact you when it's ready.</p><p>Order total: {{total}}</p>",
+      "TextPart": "Thank you for your order! We've received your order for {{items}} and will contact you when it's ready. Order total: {{total}}"
+    }
+  }
